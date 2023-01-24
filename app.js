@@ -48,6 +48,6 @@ mongoose.connect(conn_str); //פתיחת החיבור לבסיס הנתונים
 //app.use("/product",auth,Productrouter); //הוספת שכבה של ניתוב עבור מוצרים,תהיה גישה לניתובים רק לאחר אותנטיקציה
 app.use("/product",Productrouter);
 app.use("/user",UserRouter);
-
+app.get('/',(req,res)=>{res.status(200).json({MSG:"ecommerce up"})})
 //סתם הערה
 module.exports = app;
