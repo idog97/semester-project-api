@@ -1,33 +1,60 @@
-//ייצוא אובייקט עם 5 פונקציות עבטר כל אחת מהפעולות,המטרה שכל הלוגיקה תשב בקובץ הנוכחי
+
 
 module.exports ={
-    
     GetAllProducts:(req,res)=>
-    {   const ProductModel = require('../models/product') //קישור למודל של אוסף המוצרים
-        ProductModel.find().then((products)=>{
-        console.log(products);
-        return res.status(200).json(products)
-       });
+    {   let connection = global.db;
+        connection.query('SELECT * FROM t_product', function(err,rows,fields){
+        if(err)
+        {
+           console.log(err.message);
+           return res.status(500).json({MSG:err.message});
+        }
+        else
+        {
+           console.log("ok")
+           return res.status(200).json({rows});
+        }
+    });
     },
        
 
     GetProductbyID:(req,res)=>
-    {  const ProductModel = require('../models/product') //קישור למודל של אוסף המוצרים
-        ProductModel.findOne({Pid:req.params.id}).then((product)=>{
-        console.log(product);
-        return res.status(200).json(product)
-       });
+    {   let connection = global.db;
+        connection.query("select * from t_product where pid =" + req.params.id,function (err,rows,fields)
+        {
+            if(err)
+            {
+                console.log(err.message);
+                return res.status(500).json({MSG:err.message});
+            }
+            else
+            {
+                console.log("ok");
+                return res.status(200).json(rows);
+            }
+        });
     },
 
     AddProduct:(req,res)=>
-    {
-        
-        const ProductModel = require('../models/product') //קישור למודל של אוסף המוצרים
-        ProductModel.insertMany(req.body).then((result)=>{
-        console.log(result);
-        return res.status(200).json(result)
-       });
-        
+    {   let connection = global.db;
+        const pname = req.body.pname;
+        const price = req.body.price;
+        const pdesc = req.body.pdesc;
+        const picname = req.body.picname;
+        let sql ="INSERT INTO t_product (pname,price,pdesc,picname) VALUES ('"+pname+"','"+price+"','"+pdesc+"','"+picname+ "')";
+        console.log(sql);
+        connection.query(sql,function(err,rows,fields){
+            if(err)
+            {
+                console.log(err.message);
+                return res.status(500).json(err.message);
+            }
+            else
+            {
+                console.log("ok");
+                return res.status(200).json(rows);
+            }
+        })
     },
 
         //return res.status(200).json({MSG:"add new product"})},
