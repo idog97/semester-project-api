@@ -33,49 +33,27 @@ module.exports ={
         //return res.status(200).json({MSG:"add new product"})},
 
     DeleteProduct:(req,res)=>
-    {   let connection = global.db;
-        connection.query('DELETE from t_product WHERE pid = '+req.params.id,
-        (err,rows,fields)=>
-        {
-        {
-            if(err)
-            {
-                console.log(err.message);
-                return res.status(500).json(err.message);
-            }
-            else
-            {
-                console.log("ok");
-                return res.status(200).json(rows);
-            }
-        }   
-        }
-    )},
+    {   
+        const ProductModel = require('../models/product');
+        ProductModel.deleteOne({Pid:req.params.id},req.body).then((product)=>{
+            console.log("item deleted",product);
+            return res.status(200).json({product});
+        });
+    },
     
         //return res.status(200).json({MSG:"delete product" + req.params.id})},
 
     UpdateProduct:(req,res)=>
     {
-        let connection = global.db;
-        var pname = req.body.pname;
-        var price = req.body.price;
-        var pdesc = req.body.pdesc;
-        var picname = req.body.picname;
-        var sql = "UPDATE t_product SET pname='" + pname +"', price='" + price + "',pdesc='" +  pdesc + "',picname='" + picname +"' WHERE pid="+ req.params.id;
-        console.log(sql);
-        connection.query(sql,function(err,rows,fields)
-        {
-            if(err)
-            {
-                console.log(err.message);
-                return res.status(500).json(err.message);
-            }
-            else
-            {
-                console.log("ok");
-                return res.status(200).json(rows);
-            }
-        }
-        //return res.status(200).json({MSG:"update product by id" + req.params.id
-    )},
+        
+        var pname = req.params.pname;
+        var price = req.params.price;
+        var pdesc = req.params.pdesc;
+        var picname = req.params.picname;
+        const ProductModel = require('../models/product')
+        ProductModel.updateOne({Pid:req.params.id},req.body).then((products)=>{
+            console.log(products);
+            return res.status(200).json({products});
+        });
+    },
 };

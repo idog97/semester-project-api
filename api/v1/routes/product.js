@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 //קישור לקובץ קוד המוצרים
-const {GetAllProducts,GetProductbyID,AddProduct,DeleteProduct,UpdateProduct} = require("../controllers/product"); 
+const {GetAllProducts,GetProductbyID,AddProduct,DeleteProduct,UpdateProduct} = require("../controllers/product-mysql"); 
 
 //ניתוב נקודת קצה בשיטת גט לנתיב של כל המוצרים
 router.get("/",GetAllProducts);
