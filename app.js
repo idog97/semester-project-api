@@ -3,6 +3,7 @@ const app = express(); // יצירת אובייקט של אקספרס
 const morgan = require('morgan'); // חיבור לספריית מורגן שמבצעת יומן
 const Productrouter = require('./api/v1/routes/product'); //קישור לראוטר של מוצרים שהוגדר בקובץ בנפרד
 app.use(express.json()) //מתורגמן,מידלוור שקורא אובייקטים מסוג ג׳ייסון
+app.use('/static',express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev')); //הוספת שכבת מורגן שמבצעת יומן של בקשות ומציגה בקונסול
 //הוספץ שכבת ביניים שמתעדת כל פניה לשרת בקונסול
