@@ -22,14 +22,13 @@ database:'Ecommdb'
  connection.connect(function(err){
     if(err)
     console.log('error ' + err.message);
-    else // במידה ולא הייתה שגיאה מדפיסים למסך הודעה כללית
+    else 
     console.log('connected to DataBase');
  })
  global.db = connection; // שמירת החיבור לבסיס הנתונים כגלובאלי כך שיוכר בכל מקום בתכנית
 
 
 
-//app.use("/product",auth,Productrouter); //הוספת שכבה של ניתוב עבור מוצרים,תהיה גישה לניתובים רק לאחר אותנטיקציה
 app.use("/product",Productrouter);
 //סתם הערה
 module.exports = app;

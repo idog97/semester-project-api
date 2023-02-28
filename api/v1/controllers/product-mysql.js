@@ -57,7 +57,6 @@ module.exports ={
         })
     },
 
-        //return res.status(200).json({MSG:"add new product"})},
 
     DeleteProduct:(req,res)=>
     {   let connection = global.db;
@@ -79,7 +78,6 @@ module.exports ={
         }
     )},
     
-        //return res.status(200).json({MSG:"delete product" + req.params.id})},
 
     UpdateProduct:(req,res)=>
     {
@@ -103,6 +101,5 @@ module.exports ={
                 return res.status(200).json(rows);
             }
         }
-        //return res.status(200).json({MSG:"update product by id" + req.params.id
     )},
 };
